@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище Borisova_BooksModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Table_Authors">
+          <Key>
+            <PropertyRef Name="IdAuthor" />
+          </Key>
+          <Property Name="IdAuthor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameAuthor" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Table_Books">
+          <Key>
+            <PropertyRef Name="IdBook" />
+          </Key>
+          <Property Name="IdBook" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TitleBook" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Annotation" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Summary" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Image" Type="nvarchar(max)" />
+          <Property Name="IdAuthor" Type="int" />
+          <Property Name="IdGenre" Type="int" />
+        </EntityType>
+        <EntityType Name="Table_Genres">
+          <Key>
+            <PropertyRef Name="IdGenre" />
+          </Key>
+          <Property Name="IdGenre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TitleGenre" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Table_Links">
+          <Key>
+            <PropertyRef Name="IdLink" />
+          </Key>
+          <Property Name="IdLink" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Link" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IdBook" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Table_Books_Table_Authors">
+          <End Role="Table_Authors" Type="Self.Table_Authors" Multiplicity="0..1" />
+          <End Role="Table_Books" Type="Self.Table_Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_Authors">
+              <PropertyRef Name="IdAuthor" />
+            </Principal>
+            <Dependent Role="Table_Books">
+              <PropertyRef Name="IdAuthor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_Books_Table_Genres">
+          <End Role="Table_Genres" Type="Self.Table_Genres" Multiplicity="0..1" />
+          <End Role="Table_Books" Type="Self.Table_Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_Genres">
+              <PropertyRef Name="IdGenre" />
+            </Principal>
+            <Dependent Role="Table_Books">
+              <PropertyRef Name="IdGenre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_Links_Table_Books">
+          <End Role="Table_Books" Type="Self.Table_Books" Multiplicity="1" />
+          <End Role="Table_Links" Type="Self.Table_Links" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_Books">
+              <PropertyRef Name="IdBook" />
+            </Principal>
+            <Dependent Role="Table_Links">
+              <PropertyRef Name="IdBook" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Borisova_BooksModelContainer">
+          <EntitySet Name="Table_Authors" EntityType="Self.Table_Authors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_Books" EntityType="Self.Table_Books" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_Genres" EntityType="Self.Table_Genres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_Links" EntityType="Self.Table_Links" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Table_Books_Table_Authors" Association="Self.FK_Table_Books_Table_Authors">
+            <End Role="Table_Authors" EntitySet="Table_Authors" />
+            <End Role="Table_Books" EntitySet="Table_Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_Books_Table_Genres" Association="Self.FK_Table_Books_Table_Genres">
+            <End Role="Table_Genres" EntitySet="Table_Genres" />
+            <End Role="Table_Books" EntitySet="Table_Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_Links_Table_Books" Association="Self.FK_Table_Links_Table_Books">
+            <End Role="Table_Books" EntitySet="Table_Books" />
+            <End Role="Table_Links" EntitySet="Table_Links" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Borisova_BooksModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Borisova_BooksEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Table_Authors" EntityType="Borisova_BooksModel.Table_Authors" />
+          <EntitySet Name="Table_Books" EntityType="Borisova_BooksModel.Table_Books" />
+          <EntitySet Name="Table_Genres" EntityType="Borisova_BooksModel.Table_Genres" />
+          <EntitySet Name="Table_Links" EntityType="Borisova_BooksModel.Table_Links" />
+          <AssociationSet Name="FK_Table_Books_Table_Authors" Association="Borisova_BooksModel.FK_Table_Books_Table_Authors">
+            <End Role="Table_Authors" EntitySet="Table_Authors" />
+            <End Role="Table_Books" EntitySet="Table_Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_Books_Table_Genres" Association="Borisova_BooksModel.FK_Table_Books_Table_Genres">
+            <End Role="Table_Genres" EntitySet="Table_Genres" />
+            <End Role="Table_Books" EntitySet="Table_Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_Links_Table_Books" Association="Borisova_BooksModel.FK_Table_Links_Table_Books">
+            <End Role="Table_Books" EntitySet="Table_Books" />
+            <End Role="Table_Links" EntitySet="Table_Links" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Table_Authors">
+          <Key>
+            <PropertyRef Name="IdAuthor" />
+          </Key>
+          <Property Name="IdAuthor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameAuthor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Table_Books" Relationship="Borisova_BooksModel.FK_Table_Books_Table_Authors" FromRole="Table_Authors" ToRole="Table_Books" />
+        </EntityType>
+        <EntityType Name="Table_Books">
+          <Key>
+            <PropertyRef Name="IdBook" />
+          </Key>
+          <Property Name="IdBook" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TitleBook" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Annotation" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Summary" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IdAuthor" Type="Int32" />
+          <Property Name="IdGenre" Type="Int32" />
+          <NavigationProperty Name="Table_Authors" Relationship="Borisova_BooksModel.FK_Table_Books_Table_Authors" FromRole="Table_Books" ToRole="Table_Authors" />
+          <NavigationProperty Name="Table_Genres" Relationship="Borisova_BooksModel.FK_Table_Books_Table_Genres" FromRole="Table_Books" ToRole="Table_Genres" />
+          <NavigationProperty Name="Table_Links" Relationship="Borisova_BooksModel.FK_Table_Links_Table_Books" FromRole="Table_Books" ToRole="Table_Links" />
+        </EntityType>
+        <EntityType Name="Table_Genres">
+          <Key>
+            <PropertyRef Name="IdGenre" />
+          </Key>
+          <Property Name="IdGenre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TitleGenre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Table_Books" Relationship="Borisova_BooksModel.FK_Table_Books_Table_Genres" FromRole="Table_Genres" ToRole="Table_Books" />
+        </EntityType>
+        <EntityType Name="Table_Links">
+          <Key>
+            <PropertyRef Name="IdLink" />
+          </Key>
+          <Property Name="IdLink" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Link" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IdBook" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Table_Books" Relationship="Borisova_BooksModel.FK_Table_Links_Table_Books" FromRole="Table_Links" ToRole="Table_Books" />
+        </EntityType>
+        <Association Name="FK_Table_Books_Table_Authors">
+          <End Type="Borisova_BooksModel.Table_Authors" Role="Table_Authors" Multiplicity="0..1" />
+          <End Type="Borisova_BooksModel.Table_Books" Role="Table_Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_Authors">
+              <PropertyRef Name="IdAuthor" />
+            </Principal>
+            <Dependent Role="Table_Books">
+              <PropertyRef Name="IdAuthor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_Books_Table_Genres">
+          <End Type="Borisova_BooksModel.Table_Genres" Role="Table_Genres" Multiplicity="0..1" />
+          <End Type="Borisova_BooksModel.Table_Books" Role="Table_Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_Genres">
+              <PropertyRef Name="IdGenre" />
+            </Principal>
+            <Dependent Role="Table_Books">
+              <PropertyRef Name="IdGenre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_Links_Table_Books">
+          <End Type="Borisova_BooksModel.Table_Books" Role="Table_Books" Multiplicity="1" />
+          <End Type="Borisova_BooksModel.Table_Links" Role="Table_Links" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_Books">
+              <PropertyRef Name="IdBook" />
+            </Principal>
+            <Dependent Role="Table_Links">
+              <PropertyRef Name="IdBook" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Borisova_BooksModelContainer" CdmEntityContainer="Borisova_BooksEntities">
+          <EntitySetMapping Name="Table_Authors">
+            <EntityTypeMapping TypeName="Borisova_BooksModel.Table_Authors">
+              <MappingFragment StoreEntitySet="Table_Authors">
+                <ScalarProperty Name="NameAuthor" ColumnName="NameAuthor" />
+                <ScalarProperty Name="IdAuthor" ColumnName="IdAuthor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_Books">
+            <EntityTypeMapping TypeName="Borisova_BooksModel.Table_Books">
+              <MappingFragment StoreEntitySet="Table_Books">
+                <ScalarProperty Name="IdGenre" ColumnName="IdGenre" />
+                <ScalarProperty Name="IdAuthor" ColumnName="IdAuthor" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
+                <ScalarProperty Name="Annotation" ColumnName="Annotation" />
+                <ScalarProperty Name="TitleBook" ColumnName="TitleBook" />
+                <ScalarProperty Name="IdBook" ColumnName="IdBook" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_Genres">
+            <EntityTypeMapping TypeName="Borisova_BooksModel.Table_Genres">
+              <MappingFragment StoreEntitySet="Table_Genres">
+                <ScalarProperty Name="TitleGenre" ColumnName="TitleGenre" />
+                <ScalarProperty Name="IdGenre" ColumnName="IdGenre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_Links">
+            <EntityTypeMapping TypeName="Borisova_BooksModel.Table_Links">
+              <MappingFragment StoreEntitySet="Table_Links">
+                <ScalarProperty Name="IdBook" ColumnName="IdBook" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="IdLink" ColumnName="IdLink" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
